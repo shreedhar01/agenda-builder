@@ -1,0 +1,8 @@
+{
+  "apps/frontend/**/*.{ts,tsx}": [
+    "pnpm --filter frontend lint --fix"
+  ],
+  "apps/backend/**/*.{ts,tsx}": [
+    "pnpm --filter backend lint --fix"
+  ]
+}
