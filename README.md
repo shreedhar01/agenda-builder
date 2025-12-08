@@ -51,4 +51,4 @@ Make sure you have the following installed on your system:
     ```
     This will start:
     -   The frontend application on `http://localhost:3000`
-    -   The backend server on `http://localhost:8000`
+    -   The backend server on `http://localhost:8001`
