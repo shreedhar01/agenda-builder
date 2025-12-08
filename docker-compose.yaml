@@ -1,0 +1,32 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    image: shreedhar01/agenda-builder-frontend:latest
+    container_name: agenda-builder-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - agenda-net
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    image: shreedhar01/agenda-builder-backend:latest
+    container_name: agenda-builder-backend
+    env_file:
+      - apps/backend/.env
+    ports:
+      - "8001:8001"
+    networks:
+      - agenda-net
+    restart: unless-stopped
+
+networks:
+  agenda-net:
+    driver: bridge

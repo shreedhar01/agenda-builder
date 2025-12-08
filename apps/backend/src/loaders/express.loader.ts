@@ -1,4 +1,4 @@
-import express, { type Request, type Response } from "express";
+import express, { type NextFunction, type Request, type Response } from "express";
 
 import authRouter from "../api_v1/routes/auth.routes.js"
 import { ApiError } from "@agenda-builder/shared-types";
@@ -9,13 +9,13 @@ export const expressLoader = ():express.Application => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   
-  app.get("/", (req, res) => {
-    res.send("server is running");
+  app.get("/", (req:Request, res:Response) => {
+    return res.send("server is running");
   });
 
   app.use("/auth",authRouter)
 
-  app.use((err: Error, req:Request, res:Response)=>{
+  app.use((err: Error, req:Request, res:Response, _next:NextFunction)=>{
     if(err instanceof ApiError){
       return res.status(err.statusCode).json({
         success:err.success,

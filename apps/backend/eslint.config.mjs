@@ -14,4 +14,12 @@ export default [
       globals: globals.node,
     },
   },
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { "argsIgnorePattern": "^_" }
+      ]
+    }
+  }
 ];
