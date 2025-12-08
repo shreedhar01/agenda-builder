@@ -1,36 +1,23 @@
 import type { Request, Response } from "express";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { createAccountSchema } from "@agenda-builder/shared-types";
+import { createAccountSchema,ApiError, ApiResponse } from "@agenda-builder/shared-types";
 import { createUserService } from "../../services/auth.service.js";
 
 //create user
 export const createAccount = asyncHandler(async (req: Request, res: Response) => {
         const validationResult = createAccountSchema.safeParse(req.body);
         if (!validationResult.success) {
-            res.status(400).json({
-                success: false,
-                message: "Validation Error",
-                errors: validationResult.error.issues,
-            });
-            return;
+            throw new ApiError(400,"Validation Error",validationResult.error.issues);
         }
-        const user = await createUserService(validationResult.data)
 
+        const user = await createUserService(validationResult.data)
         if (!user){
-            res.status(400).json({ 
-                success: false,
-                message: "Validation Error",
-                errors: "something went wrong"
-            });
-            return;
+            throw new ApiError(400,"User Creation fail");
         }
-        res.status(400).json({
-            success: true,
-            message: "User Created success",
-            data:{
-                user: user.name
-            }
-        })
+
+        return res.status(200).json(
+            new ApiResponse(200,"user Created success")
+        )
     },
 );
 
