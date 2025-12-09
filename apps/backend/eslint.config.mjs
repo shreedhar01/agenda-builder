@@ -1,25 +1,3 @@
-import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import { config } from "@repo/eslint-config/base";
 
-export default [
-  {
-    ignores: ["dist/**"]
-  },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-    languageOptions: {
-      globals: globals.node,
-    },
-  },
-  {
-    rules: {
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { "argsIgnorePattern": "^_" }
-      ]
-    }
-  }
-];
+export default config;

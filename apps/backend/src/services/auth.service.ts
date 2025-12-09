@@ -1,6 +1,6 @@
 import { User } from "../models/user.model.js";
 import { comparePassword, hashPassword } from "../utils/bcrypt.js";
-import { ApiError, type CreateAccountInput, type LoginUserInput } from "@agenda-builder/shared-types"
+import { ApiError, type CreateAccountInput, type LoginUserInput } from "@repo/shared-types"
 import { jwtSign } from "../utils/jwt.js";
 
 export const createUserService = async (userData: CreateAccountInput) => {

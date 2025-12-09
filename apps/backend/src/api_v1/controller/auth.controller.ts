@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { createAccountSchema, ApiError, ApiResponse, loginUserSchema } from "@agenda-builder/shared-types";
+import { createAccountSchema, ApiError, ApiResponse, loginUserSchema } from "@repo/shared-types";
 import { createUserService, loginUserService } from "../../services/auth.service.js";
 
 //create user

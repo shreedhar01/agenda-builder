@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { jwtVerify } from "../../utils/jwt.js";
-import { ApiError } from "@agenda-builder/shared-types";
+import { ApiError } from "@repo/shared-types";
 import { User } from "../../models/user.model.js";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {

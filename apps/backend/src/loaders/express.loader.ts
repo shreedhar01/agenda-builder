@@ -1,7 +1,7 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 
 import authRouter from "../api_v1/routes/auth.routes.js"
-import { ApiError } from "@agenda-builder/shared-types";
+import { ApiError } from "@repo/shared-types";
 import cookieParser from "cookie-parser";
 
 export const expressLoader = ():express.Application => {
