@@ -2,12 +2,14 @@ import express, { type NextFunction, type Request, type Response } from "express
 
 import authRouter from "../api_v1/routes/auth.routes.js"
 import { ApiError } from "@agenda-builder/shared-types";
+import cookieParser from "cookie-parser";
 
 export const expressLoader = ():express.Application => {
   const app = express();
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
   
   app.get("/", (req:Request, res:Response) => {
     return res.send("server is running");

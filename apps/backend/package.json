@@ -17,6 +17,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.19.25",
@@ -28,6 +29,7 @@
   "dependencies": {
     "@agenda-builder/shared-types": "workspace:*",
     "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
