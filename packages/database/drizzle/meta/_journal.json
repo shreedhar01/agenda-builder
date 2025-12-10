@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1765362259253,
+      "tag": "0000_organic_winter_soldier",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765367591693,
+      "tag": "0001_open_plazm",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765367823398,
+      "tag": "0002_flimsy_gertrude_yorkes",
+      "breakpoints": true
+    }
+  ]
+}

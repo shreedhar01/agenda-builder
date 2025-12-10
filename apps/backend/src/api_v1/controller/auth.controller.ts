@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { createAccountSchema, ApiError, ApiResponse, loginUserSchema } from "@repo/shared-types";
-import { createUserService, loginUserService } from "../../services/auth.service.js";
+import { createUserService, loginUserService } from "../../services/auth.service.sql.js";
 
 //create user
 export const createAccount = asyncHandler(async (req: Request, res: Response) => {
