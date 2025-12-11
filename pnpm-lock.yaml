@@ -53,6 +53,9 @@ importers:
       mongoose:
         specifier: ^9.0.1
         version: 9.0.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
     devDependencies:
       '@types/bcrypt':
         specifier: ^6.0.0
@@ -143,6 +146,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/shared-types':
+        specifier: workspace:*
+        version: link:../shared-types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
@@ -194,10 +200,19 @@ importers:
 
   packages/shared-types:
     dependencies:
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
       zod:
         specifier: ^4.1.13
         version: 4.1.13
     devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       '@types/node':
         specifier: ^24.10.1
         version: 24.10.1
