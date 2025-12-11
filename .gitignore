@@ -39,3 +39,5 @@ yarn-error.log*
 next-env.d.ts
 
 system-design.txt
+
+./packages/database/drizzle

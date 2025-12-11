@@ -1,21 +1,10 @@
 import { relations } from "drizzle-orm";
 import { pgTable, varchar, timestamp, integer, pgEnum } from "drizzle-orm/pg-core";
+import {ClubRole} from "@repo/shared-types"
 
 export const clubRoleEnum = pgEnum(
   "club_role",
-  [
-    "SAA",
-    "Presiding Officer",
-    "General Evaluator",
-    "Toastmaster of the day",
-    "Grammarian",
-    "Ah-counter",
-    "Timer",
-    "Ballot Counter",
-    "Table Topic Master",
-    "Speaker",
-    "Speech Evaluator"
-  ]
+  Object.values(ClubRole) as [string, ...string[]]
 )
 
 export const users = pgTable("users", {
@@ -33,6 +22,7 @@ export const users = pgTable("users", {
 
 export const clubs = pgTable("clubs", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar({length:255}).notNull(),
   region: varchar({ length: 255 }).notNull(),
   district: varchar({ length: 255 }).notNull(),
   division: varchar({ length: 255 }).notNull(),
@@ -66,8 +56,8 @@ export const agenda_item = pgTable("agenda_item", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   agenda_id: integer().notNull().references(()=>agendas.id,{onDelete:"cascade"}),
   title: varchar({ length: 255 }).notNull(),
-  start_time: timestamp().notNull(),
-  end_time: timestamp().notNull()
+  start_time: integer().notNull(),
+  end_time: integer().notNull()
 })
 
 

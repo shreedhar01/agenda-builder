@@ -1,4 +1,4 @@
-import { email, z } from "zod";
+import { z } from "zod";
 
 export const createAccountSchema = z.object({
     name: z.string().min(1, "Name is required").trim(),

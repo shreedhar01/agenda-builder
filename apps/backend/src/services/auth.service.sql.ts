@@ -6,9 +6,9 @@ import { db, drizzleOrm } from "@repo/database";
 
 export const createUserService = async (userData: CreateAccountInput) => {
     const { name, email, password, phoneNumber } = userData;
-
     const existingUser = await db.select().from(users).where(drizzleOrm.eq(users.email,email));
-    if (existingUser.length > 0) {
+    const isUser = existingUser[0]
+    if (isUser) {
         throw new ApiError(400, "Email already registered");
     }
 
@@ -16,7 +16,7 @@ export const createUserService = async (userData: CreateAccountInput) => {
 
     let user;
     if (phoneNumber) {
-        user = await  db.insert(users).values({name,email, password:hashPass,phoneNumber})
+        user = await  db.insert(users).values({name,email, password:hashPass,phone_number:phoneNumber})
     } else {
         user = await db.insert(users).values({name,email,password:hashPass})
     }

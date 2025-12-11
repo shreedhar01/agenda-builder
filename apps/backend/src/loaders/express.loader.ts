@@ -1,6 +1,7 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 
 import authRouter from "../api_v1/routes/auth.routes.js"
+import userRouter from "../api_v1/routes/user.routes.js"
 import { ApiError } from "@repo/shared-types";
 import cookieParser from "cookie-parser";
 
@@ -16,7 +17,10 @@ export const expressLoader = ():express.Application => {
   });
 
   app.use("/auth",authRouter)
+  app.use("/user",userRouter)
 
+
+  
   app.use((err: Error, req:Request, res:Response, _next:NextFunction)=>{
     if(err instanceof ApiError){
       return res.status(err.statusCode).json({

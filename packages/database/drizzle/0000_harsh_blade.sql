@@ -3,8 +3,8 @@ CREATE TABLE "agenda_item" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "agenda_item_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"agenda_id" integer NOT NULL,
 	"title" varchar(255) NOT NULL,
-	"start_time" timestamp NOT NULL,
-	"end_time" timestamp NOT NULL
+	"start_time" integer NOT NULL,
+	"end_time" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "agendas" (
@@ -16,6 +16,7 @@ CREATE TABLE "agendas" (
 --> statement-breakpoint
 CREATE TABLE "clubs" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "clubs_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"name" varchar(255) NOT NULL,
 	"region" varchar(255) NOT NULL,
 	"district" varchar(255) NOT NULL,
 	"division" varchar(255) NOT NULL,
@@ -36,6 +37,17 @@ CREATE TABLE "memberships" (
 	"user_id" varchar(255) NOT NULL,
 	"club_id" integer NOT NULL,
 	"club_role" "club_role" NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "users" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "users_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"name" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"phone_number" varchar(50),
+	"password" varchar(255) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 ALTER TABLE "agenda_item" ADD CONSTRAINT "agenda_item_agenda_id_agendas_id_fk" FOREIGN KEY ("agenda_id") REFERENCES "public"."agendas"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
