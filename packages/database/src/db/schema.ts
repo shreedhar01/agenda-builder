@@ -33,6 +33,7 @@ export const memberships = pgTable("memberships", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   user_id: varchar({length:255}).notNull(), //if not register user then user name
   club_id: integer().notNull().references(()=> clubs.id,{onDelete:"cascade"}),
+  club_name: varchar({length:255}).notNull(),
   role_in_club: clubRoleEnum("club_role").notNull()
 })
 

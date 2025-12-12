@@ -21,7 +21,8 @@ export const creatClubUserService = async (clubData: CreateClubInput) => {
         .values({
             user_id: clubData.user_name,
             club_id: isClubCreated.id,
-            role_in_club: clubData.role_in_club
+            role_in_club: clubData.role_in_club,
+            club_name: clubData.name
         }).returning();
     const isMembershipsCreated = membershipsCreated[0];
     if (!isMembershipsCreated) {

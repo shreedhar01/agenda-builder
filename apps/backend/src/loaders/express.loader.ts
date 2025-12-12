@@ -1,9 +1,12 @@
 import express, { type NextFunction, type Request, type Response } from "express";
+import cookieParser from "cookie-parser";
+import { ApiError } from "@repo/shared-types";
 
 import authRouter from "../api_v1/routes/auth.routes.js"
 import userRouter from "../api_v1/routes/user.routes.js"
-import { ApiError } from "@repo/shared-types";
-import cookieParser from "cookie-parser";
+import clubRouter from "../api_v1/routes/club.routes.js"
+import agendaRouter from "../api_v1/routes/agenda.routes.js"
+import agendaItemRouter from "../api_v1/routes/agendaItem.routes.js"
 
 export const expressLoader = ():express.Application => {
   const app = express();
@@ -18,6 +21,9 @@ export const expressLoader = ():express.Application => {
 
   app.use("/auth",authRouter)
   app.use("/user",userRouter)
+  app.use("/club",clubRouter)
+  app.use("/agenda",agendaRouter)
+  app.use("/agendaItem",agendaItemRouter)
 
 
   

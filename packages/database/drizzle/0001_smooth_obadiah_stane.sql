@@ -1,0 +1,1 @@
+ALTER TABLE "memberships" ADD COLUMN "club_name" varchar(255) NOT NULL;
