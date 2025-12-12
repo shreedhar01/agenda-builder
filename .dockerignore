@@ -1,0 +1,97 @@
+# Dependencies
+node_modules
+**/node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+.pnpm-store
+
+# Build outputs
+dist
+build
+out
+.next
+**/.next
+**/dist
+**/build
+**/out
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+**/.DS_Store
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Testing
+coverage
+**/coverage
+.nyc_output
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__
+__mocks__
+
+# Documentation
+*.md
+README.md
+docs
+**/docs
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Docker (don't copy Docker files into the image)
+Dockerfile
+.dockerignore
+**/Dockerfile
+**/.dockerignore
+docker-compose*.yml
+docker-compose*.yaml
+
+# Logs
+logs
+**/logs
+*.log
+
+# Temporary files
+tmp
+temp
+*.tmp
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Turbo cache (if using Turborepo)
+.turbo
+
+# Other
+.eslintcache
+.prettierignore
+system-design.txt
+commitlint.config.mjs
+
+# Vercel
+.vercel
+**/.vercel
