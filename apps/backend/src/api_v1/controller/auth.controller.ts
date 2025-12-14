@@ -14,8 +14,9 @@ export const createAccount = asyncHandler(async (req: Request, res: Response) =>
     const options = {
         httpOnly: true,
         secure: true,
-        sameSite: "lax" as const,
-        maxAge: Number(process.env.JWT_LIFE) || 1000 * 60 * 60 * 24 //1 day
+        sameSite: "none" as const,
+        maxAge: Number(process.env.JWT_LIFE) || 1000 * 60 * 60 * 24, //1 day
+        path:"/"
     };
 
     return res
@@ -39,8 +40,9 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     const options = {
         httpOnly: true,
         secure: true,
-        sameSite: "lax" as const,
-        maxAge: Number(process.env.JWT_LIFE) || 1000 * 60 * 60 * 24 //1 day
+        sameSite: "none" as const,
+        maxAge: Number(process.env.JWT_LIFE) || 1000 * 60 * 60 * 24, //1 day
+        path:"/"
     };
     // console.log(data)
 
