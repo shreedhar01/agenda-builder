@@ -1,6 +1,7 @@
 import express, { type Express  ,type NextFunction, type Request, type Response } from "express";
 import cookieParser from "cookie-parser";
 import { ApiError } from "@repo/shared-types";
+import cors from "cors"
 
 import authRouter from "./api_v1/routes/auth.routes.js"
 import userRouter from "./api_v1/routes/user.routes.js"
@@ -10,6 +11,10 @@ import agendaItemRouter from "./api_v1/routes/agendaItem.routes.js"
 
 const app:Express = express();
 
+app.use(cors({
+  origin:["http://localhost:3000"],
+  credentials: true
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

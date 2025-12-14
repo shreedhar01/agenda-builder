@@ -7,7 +7,7 @@ import { db,drizzleOrm } from "@repo/database";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const token = req.cookies?.login
+        const token = req.cookies?.auth
         if (!token) {
             return next(new ApiError(401, "Unauthorized request, no token provided"));
         }

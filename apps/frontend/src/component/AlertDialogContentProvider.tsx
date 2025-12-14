@@ -1,15 +1,12 @@
 "use client"
 import axios from "axios";
-import { PlusIcon } from "lucide-react";
 
 import {
-  AlertDialog,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
 } from "@repo/ui/components/alert-dialog";
 import { Button } from "@repo/ui/components/button"
 import {
@@ -30,7 +27,7 @@ import { ClubRole, createClubSchema } from "@repo/shared-types"
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export const AlertDialogContentProvider = async () => {
+export const AlertDialogContentProvider = () => {
   const [clubName, setClubName] = useState("");
   const [area, setArea] = useState("");
   const [division, setDivision] = useState("");

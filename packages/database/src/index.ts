@@ -1,7 +1,14 @@
+import { drizzle as drizzleNeon } from 'drizzle-orm/neon-http';
+import { drizzle as drizzlePostgres } from 'drizzle-orm/postgres-js';
 import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
+import postgres from 'postgres';
 
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle({ client: sql });
+const databaseUrl = process.env.DATABASE_URL!;
 
-export * as drizzleOrm from "drizzle-orm"
+const isNeon = databaseUrl.includes('neon.tech') || databaseUrl.includes('neon.postgres');
+
+export const db = isNeon
+  ? drizzleNeon(neon(databaseUrl))
+  : drizzlePostgres(postgres(databaseUrl));
+
+export * as drizzleOrm from "drizzle-orm";

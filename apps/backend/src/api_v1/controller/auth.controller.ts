@@ -10,14 +10,20 @@ export const createAccount = asyncHandler(async (req: Request, res: Response) =>
         throw new ApiError(400, "Validation Error", validationResult.error.issues);
     }
 
-    const user = await createUserService(validationResult.data)
-    if (!user) {
-        throw new ApiError(400, "User Creation fail");
-    }
+    const token = await createUserService(validationResult.data)
+    const options = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax" as const,
+        maxAge: Number(process.env.JWT_LIFE) || 1000 * 60 * 60 * 24 //1 day
+    };
 
-    return res.status(200).json(
-        new ApiResponse(200, "user Created success")
-    )
+    return res
+        .status(200)
+        .cookie("auth", token, options)
+        .json(
+            new ApiResponse(200, "user Created success")
+        )
 },
 );
 
@@ -28,18 +34,19 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
         throw new ApiError(400, "Validation Error", validationResult.error.issues)
     }
 
-    const token = await loginUserService(validationResult.data)
+    const { token } = await loginUserService(validationResult.data)
 
     const options = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict" as const,
+        secure: true,
+        sameSite: "lax" as const,
         maxAge: Number(process.env.JWT_LIFE) || 1000 * 60 * 60 * 24 //1 day
     };
+    // console.log(data)
 
     return res
         .status(200)
-        .cookie("login", token, options)
+        .cookie("auth", token, options)
         .json(
             new ApiResponse(200, "User Login Success")
         )
@@ -54,8 +61,19 @@ export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
 
     return res
         .status(200)
-        .clearCookie("login")
+        .clearCookie("auth")
         .json(
             new ApiResponse(200, "User logout success")
         )
+})
+
+
+export const verifyUserCookie = asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user) {
+        throw new ApiError(400, "Cookie not correct");
+    }
+    return res.status(200).json(
+        new ApiResponse(200, "Cookie is correct", [user])
+    )
 })

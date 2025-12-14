@@ -5,6 +5,8 @@ services:
       dockerfile: apps/frontend/Dockerfile
     image: shreedhar01/agenda-builder-frontend:latest
     container_name: agenda-builder-frontend
+    env_file:
+      - apps/frontend/.env
     ports:
       - "3000:3000"
     networks:
