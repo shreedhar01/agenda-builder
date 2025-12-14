@@ -12,7 +12,7 @@ import agendaItemRouter from "./api_v1/routes/agendaItem.routes.js"
 const app:Express = express();
 
 app.use(cors({
-  origin:["http://localhost:3000"],
+  origin:["http://localhost:3000","https://agenda-builder-frontend.vercel.app/"],
   credentials: true
 }))
 app.use(express.json());
