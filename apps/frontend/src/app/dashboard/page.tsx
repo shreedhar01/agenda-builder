@@ -1,8 +1,8 @@
 "use client"
-import { 
+import {
   PlusIcon,
   HeartHandshakeIcon
- } from "lucide-react";
+} from "lucide-react";
 
 import {
   AlertDialog,
@@ -11,21 +11,30 @@ import {
 import { Button } from "@repo/ui/components/button"
 import { AlertDialogContentProvider } from "../../component/AlertDialogContentProvider";
 import { Header } from "../../component/Header";
+import { YourClubs } from "../../component/YourClubs";
+import { Dialog, DialogTrigger } from "@repo/ui/components/dialog"
+import { JoinClub } from "../../component/JoinClub";
 
 export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <Header />
-      <div className="flex justify-end w-full md:w-7xl pt-8 px-2 md:px-0">
+      <div className="flex justify-end w-full md:w-7xl py-8 px-2 md:px-0">
         <div className="flex items-center gap-2 ">
-          <Button className="">
-            Join Club
-            <HeartHandshakeIcon></HeartHandshakeIcon>
-          </Button>
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="outline">
+                Join Club
+                <HeartHandshakeIcon></HeartHandshakeIcon>
+              </Button>
+            </DialogTrigger>
+            <JoinClub/>
+          </Dialog>
+
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button size="lg" variant="outline">
+              <Button variant="outline">
                 <h1>Create Club</h1>
                 <PlusIcon></PlusIcon>
               </Button>
@@ -34,8 +43,16 @@ export default function Home() {
           </AlertDialog>
         </div>
       </div>
-      <div>
-        <h1>no</h1>
+      <div className="flex flex-col-reverse md:flex-row justify-between w-full md:w-7xl h-[78vh] px-2 md:px-0">
+        <div className="">
+          hy
+        </div>
+        <div className="flex flex-col gap-2 h-full w-full md:w-25/100">
+          <h1 className="text-xl md:text-2xl font-medium ">Your Clubs :</h1>
+          <div className="flex-1 min-h-0 ">
+            <YourClubs />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -17,19 +17,16 @@ export const Header = () => {
     useEffect(() => {
         const checkSession = async () => {
             try {
-                // Create a backend endpoint that reads the cookie and returns user data if valid.
                 await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, {
                     withCredentials: true
                 }).then(res => {
-                    console.log('API Response:', res.data.data[0])
+                    // console.log('API Response:', res.data.data[0])
                     dispatch(login(res.data.data[0]))
                 })
 
             } catch (error) {
                 console.error('Session check failed:', error);
-                // Important: handle the error case
                 dispatch(logout()) // Clear any stale state
-                // router.push("/")
             } finally {
                 setLoading(false)
             }

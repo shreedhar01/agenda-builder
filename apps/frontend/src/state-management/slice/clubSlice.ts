@@ -28,7 +28,7 @@ export const clubSlice = createSlice({
 
             const isClubExist = state.clubs.find(club => club.id === action.payload.id)
             if (!isClubExist) {
-                state.clubs.push(action.payload)
+                state.clubs.unshift(action.payload)
             }
         },
         leaveClub: (state, action: PayloadAction<{ id: number }>) => {

@@ -13,7 +13,7 @@
     "next-env.d.ts",
     "next.config.js",
     ".next/types/**/*.ts"
-, "next.config.mjs"  ],
+, "next.config.mjs", "src/component/YourClubs.tsx"  ],
   "exclude": [
     "node_modules"
   ]

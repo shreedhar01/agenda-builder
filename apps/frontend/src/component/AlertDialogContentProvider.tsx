@@ -303,9 +303,9 @@ export const AlertDialogContentProvider = () => {
                 </div>
               </FieldGroup>
             </FieldSet>
-            <Field orientation="horizontal">
-              <Button type="submit">Submit</Button>
+            <Field orientation="horizontal" className="flex justify-end">
               <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <Button type="submit">Submit</Button>
             </Field>
           </FieldGroup>
         </form>
