@@ -15,6 +15,13 @@
       "when": 1765509119276,
       "tag": "0001_smooth_obadiah_stane",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765774952146,
+      "tag": "0002_small_the_twelve",
+      "breakpoints": true
     }
   ]
 }

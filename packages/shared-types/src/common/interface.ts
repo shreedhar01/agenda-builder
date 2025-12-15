@@ -3,4 +3,7 @@ export interface ClubMembershipReturn{
     club_name: string
 }
 
-// export interface AgendaItemReques
+export interface ErrorType{
+    path:string,
+    message:string
+}

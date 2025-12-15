@@ -1,5 +1,8 @@
 "use client"
-import { PlusIcon } from "lucide-react";
+import { 
+  PlusIcon,
+  HeartHandshakeIcon
+ } from "lucide-react";
 
 import {
   AlertDialog,
@@ -10,21 +13,26 @@ import { AlertDialogContentProvider } from "../../component/AlertDialogContentPr
 import { Header } from "../../component/Header";
 
 export default function Home() {
- 
+
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <Header/>
-      <div className="flex justify-between w-full md:w-7xl px-2 md:px-0">
-        <h1>Agenda Builder</h1>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="outline">
-              <h1>Create Club</h1>
-              <PlusIcon></PlusIcon>
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContentProvider/>
-        </AlertDialog>
+      <Header />
+      <div className="flex justify-end w-full md:w-7xl pt-8 px-2 md:px-0">
+        <div className="flex items-center gap-2 ">
+          <Button className="">
+            Join Club
+            <HeartHandshakeIcon></HeartHandshakeIcon>
+          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button size="lg" variant="outline">
+                <h1>Create Club</h1>
+                <PlusIcon></PlusIcon>
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContentProvider />
+          </AlertDialog>
+        </div>
       </div>
       <div>
         <h1>no</h1>

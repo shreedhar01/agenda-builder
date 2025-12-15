@@ -1,0 +1,1 @@
+ALTER TYPE "public"."club_role" ADD VALUE 'Visitor';

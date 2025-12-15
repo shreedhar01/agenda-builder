@@ -2,7 +2,7 @@ import { db, drizzleOrm } from "@repo/database";
 import { agenda_item, agendas, clubs, meetings, memberships } from "@repo/database/schema";
 import { ApiError, type CreateAgendaInput, type CreateClubInput, type CreateMeetingInput } from "@repo/shared-types";
 
-export const creatClubUserService = async (clubData: CreateClubInput) => {
+export const creatClubUserService = async (clubData: CreateClubInput, user_name:string) => {
     const clubCreated = await db.insert(clubs)
         .values({
             name: clubData.name,
@@ -19,7 +19,7 @@ export const creatClubUserService = async (clubData: CreateClubInput) => {
 
     const membershipsCreated = await db.insert(memberships)
         .values({
-            user_id: clubData.user_name,
+            user_id: user_name,
             club_id: isClubCreated.id,
             role_in_club: clubData.role_in_club,
             club_name: clubData.name

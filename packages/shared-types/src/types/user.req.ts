@@ -9,7 +9,8 @@ export const createClubSchema = z.object({
     division: z.string().min(3, "Division should be more then 3 character").max(255, "Club name should not be more then 255 character").trim(),
     area: z.string().min(3, "Area should be more then 3 character").max(255, "Club name should not be more then 255 character").trim(),
     role_in_club: z.enum(ClubRole),
-    user_name: z.string().min(3, "Area should be more then 3 character").max(255, "Club name should not be more then 255 character").trim()
+    
+    // user_name: z.string().min(3, "Area should be more then 3 character").max(255, "Club name should not be more then 255 character").trim()
 })
 export type CreateClubInput = z.infer<typeof createClubSchema>
 

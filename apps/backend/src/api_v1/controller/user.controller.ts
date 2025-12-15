@@ -11,12 +11,12 @@ export const creatClub = asyncHandler(async (req: Request, res: Response) => {
         throw new ApiError(400, "Validation fail", validationResult.error.issues)
     }
     // console.log("reach here 2")
+    const userName = req.user?.name
+    if (!userName) {
+        throw new ApiError(401, "User not found, please login again")
+    }
 
-    // if (!req.user) {
-    //     throw new ApiError(401, "User not found, please login again")
-    // }
-
-    const { isClubCreated: club } = await creatClubUserService(validationResult.data);
+    const { isClubCreated: club } = await creatClubUserService(validationResult.data,userName);
 
     return res.status(200).json(
         new ApiResponse(200, "Club created Successfully",

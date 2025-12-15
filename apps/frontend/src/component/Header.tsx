@@ -10,7 +10,7 @@ import axios from "axios"
 
 export const Header = () => {
     const router = useRouter()
-    const user = useSelector((state: RootState) => state.authReducer.id)
+    const user = useSelector((state: RootState) => state.auth.id)
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(true);
 

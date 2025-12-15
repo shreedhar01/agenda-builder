@@ -9,5 +9,6 @@ export enum ClubRole {
     BALLOT_COUNTER = "Ballot Counter",
     TABLE_TOPIC_MASTER = "Table Topic Master",
     SPEAKER = "Speaker",
-    SPEECH_EVALUATOR = "Speech Evaluator"
+    SPEECH_EVALUATOR = "Speech Evaluator",
+    VISITOR = "Visitor"
 }
