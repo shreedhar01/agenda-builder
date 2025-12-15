@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation"
 
 export const YourClubs = () => {
     const dispatch = useDispatch()
-    const clubs = useSelector((state: RootState) => state.club.clubs)
+    const clubs = useSelector((state: RootState) => state.clubs.clubs)
     const router = useRouter()
 
     useEffect(() => {

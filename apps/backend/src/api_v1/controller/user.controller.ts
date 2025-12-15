@@ -52,7 +52,12 @@ export const createAgenda = asyncHandler(async (req: Request, res: Response) => 
         throw new ApiError(400, "Validation fail", validationResult.error.issues)
     }
 
-    await createAgendaService(validationResult.data)
+    const user_id = req.user?.id
+    if (!user_id) {
+        throw new ApiError(401, "User not found, please login again")
+    }
+
+    await createAgendaService(validationResult.data,Number(user_id))
     
     return res.status(200).json(
         new ApiResponse(200,"Agenda created")

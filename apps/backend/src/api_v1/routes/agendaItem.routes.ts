@@ -4,6 +4,6 @@ import { getAllAgendaItem } from "../controller/agendaItem.controllers.js";
 
 const router : ExpressRouter = Router()
 
-router.route("/").get(getAllAgendaItem)
+router.route("/").post(getAllAgendaItem)
 
 export default router

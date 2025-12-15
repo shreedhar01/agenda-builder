@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '../slice/authSlice'
 import clubReducer from "../slice/clubSlice"
+import agendaReducer from "../slice/agendaSlice"
+import agendsItemReducer from "../slice/agendaItemSlice"
 
 export const store = configureStore({
   reducer: {
-    auth:authReducer,
-    club:clubReducer
+    auth: authReducer,
+    clubs: clubReducer,
+    agendas: agendaReducer,
+    agendaItem: agendsItemReducer
   },
 })
 

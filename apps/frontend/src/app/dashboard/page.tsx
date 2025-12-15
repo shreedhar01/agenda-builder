@@ -14,6 +14,7 @@ import { Header } from "../../component/Header";
 import { YourClubs } from "../../component/YourClubs";
 import { Dialog, DialogTrigger } from "@repo/ui/components/dialog"
 import { JoinClub } from "../../component/JoinClub";
+import { YourAgendas } from "../../component/YourAgendas";
 
 export default function Home() {
 
@@ -29,7 +30,7 @@ export default function Home() {
                 <HeartHandshakeIcon></HeartHandshakeIcon>
               </Button>
             </DialogTrigger>
-            <JoinClub/>
+            <JoinClub />
           </Dialog>
 
           <AlertDialog>
@@ -43,13 +44,16 @@ export default function Home() {
           </AlertDialog>
         </div>
       </div>
-      <div className="flex flex-col-reverse md:flex-row justify-between w-full md:w-7xl h-[78vh] px-2 md:px-0">
-        <div className="">
-          hy
+      <div className="flex flex-col-reverse md:flex-row justify-between gap-y-4 w-full md:w-7xl  h-[78vh] px-2 md:px-0">
+        <div className="flex flex-col gap-2 h-1/2 md:h-full w-full md:w-70/100">
+          <h1 className="text-xl md:text-2xl font-medium ">Your Agendas :</h1>
+          <div className="flex-1 min-h-0">
+            <YourAgendas/>
+          </div>
         </div>
-        <div className="flex flex-col gap-2 h-full w-full md:w-25/100">
+        <div className="flex flex-col gap-2 h-1/2 md:h-full w-full md:w-25/100">
           <h1 className="text-xl md:text-2xl font-medium ">Your Clubs :</h1>
-          <div className="flex-1 min-h-0 ">
+          <div className="flex-1 min-h-0 overflow-hidden">
             <YourClubs />
           </div>
         </div>

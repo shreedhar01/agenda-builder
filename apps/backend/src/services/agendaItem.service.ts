@@ -10,7 +10,7 @@ export const getAllAgendaItemService = async (id: number) => {
             drizzleOrm.eq(agenda_item.agenda_id, id)
         )
     if (isAgendaItemExist.length === 0) {
-        throw new ApiError(400, "Membership doesn't exist")
+        throw new ApiError(400, "AgendaItem doesn't exist in given")
     }
 
     const returningAgendas = isAgendaItemExist.map((agendaItem) => ({

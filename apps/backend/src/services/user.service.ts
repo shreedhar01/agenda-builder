@@ -2,7 +2,7 @@ import { db, drizzleOrm } from "@repo/database";
 import { agenda_item, agendas, clubs, meetings, memberships } from "@repo/database/schema";
 import { ApiError, type CreateAgendaInput, type CreateClubInput, type CreateMeetingInput } from "@repo/shared-types";
 
-export const creatClubUserService = async (clubData: CreateClubInput, user_name:string) => {
+export const creatClubUserService = async (clubData: CreateClubInput, user_name: string) => {
     const clubCreated = await db.insert(clubs)
         .values({
             name: clubData.name,
@@ -56,12 +56,18 @@ export const createMeetingService = async (meetingData: CreateMeetingInput) => {
     return meeting
 }
 
-export const createAgendaService = async (agendaData: CreateAgendaInput) => {
+export const createAgendaService = async (agendaData: CreateAgendaInput, user_id: number) => {
+    const isMeetingExist = await db.select().from(meetings).where(drizzleOrm.eq(meetings.id, agendaData.meeting_id))
+    const meeting = isMeetingExist[0]
+    if (!meeting) {
+        throw new ApiError(400, "Meeting doesn't exist")
+    }
+
     const isAgendasCreated = await db
         .insert(agendas)
         .values({
             meeting_id: agendaData.meeting_id,
-            created_by: agendaData.created_by,
+            created_by: user_id,
             agenda_title: agendaData.agenda_title
         }).returning();
     const isAgendas = isAgendasCreated[0];
