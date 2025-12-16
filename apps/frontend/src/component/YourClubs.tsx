@@ -38,7 +38,7 @@ export const YourClubs = () => {
             {clubs.map(club =>
                 <div
                     key={club.id}
-                    onClick={()=> router.push(`/dashboard/${club.id}`)}
+                    onClick={()=> router.push(`/dashboard/club/${club.id}`)}
                     className="w-full hover:bg-neutral-400 cursor-pointer border-b p-4 rounded-xl"
                 >
                     <p>{club.name}</p>

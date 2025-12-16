@@ -8,6 +8,7 @@ import userRouter from "./api_v1/routes/user.routes.js"
 import clubRouter from "./api_v1/routes/club.routes.js"
 import agendaRouter from "./api_v1/routes/agenda.routes.js"
 import agendaItemRouter from "./api_v1/routes/agendaItem.routes.js"
+import meetingRouter from "./api_v1/routes/meeting.routes.js"
 
 const app:Express = express();
 
@@ -28,6 +29,7 @@ app.use("/user", userRouter)
 app.use("/club", clubRouter)
 app.use("/agenda", agendaRouter)
 app.use("/agendaItem", agendaItemRouter)
+app.use("/meeting", meetingRouter)
 
 app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof ApiError) {

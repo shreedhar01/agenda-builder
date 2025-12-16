@@ -3,13 +3,15 @@ import authReducer from '../slice/authSlice'
 import clubReducer from "../slice/clubSlice"
 import agendaReducer from "../slice/agendaSlice"
 import agendsItemReducer from "../slice/agendaItemSlice"
+import meetingsReducer from "../slice/meetingSlice"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     clubs: clubReducer,
     agendas: agendaReducer,
-    agendaItem: agendsItemReducer
+    agendaItem: agendsItemReducer,
+    meetings: meetingsReducer
   },
 })
 

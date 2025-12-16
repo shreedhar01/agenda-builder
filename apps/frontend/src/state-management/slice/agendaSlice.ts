@@ -3,7 +3,9 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface IAgenda {
     id: number | null,
-    title: string | null
+    title: string | null,
+    club_id:number | null,
+    meeting_id: number | null
 }
 
 export interface AgendaState {

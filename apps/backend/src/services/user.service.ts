@@ -85,4 +85,10 @@ export const createAgendaService = async (agendaData: CreateAgendaInput, user_id
 
         await db.insert(agenda_item).values(agendaItemsToInsert);
     }
+    return {
+        agenda_id: isAgendas.id,
+        agenda_title: isAgendas.agenda_title,
+        meeting_id: isAgendas.meeting_id,
+        club_id: meeting.club_id
+    };
 }

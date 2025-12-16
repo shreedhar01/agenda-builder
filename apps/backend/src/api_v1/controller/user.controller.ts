@@ -38,10 +38,7 @@ export const createMeeting = asyncHandler(async (req: Request, res: Response) =>
 
     return res.status(200).json(
         new ApiResponse(200, "Meeting Created Successfully",
-            [{
-                id: meeting.id,
-                meeting_title: meeting.meeting_title
-            }]
+            [meeting]
         )
     )
 })
@@ -57,9 +54,9 @@ export const createAgenda = asyncHandler(async (req: Request, res: Response) => 
         throw new ApiError(401, "User not found, please login again")
     }
 
-    await createAgendaService(validationResult.data,Number(user_id))
+    const createdAgenda = await createAgendaService(validationResult.data,Number(user_id))
     
     return res.status(200).json(
-        new ApiResponse(200,"Agenda created")
+        new ApiResponse(200,"Agenda created",[createdAgenda])
     )
 })

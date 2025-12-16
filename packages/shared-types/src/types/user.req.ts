@@ -26,7 +26,7 @@ export type CreateMeetingInput = z.infer<typeof createMeetingSchema>
 
 
 export const createAgendaItemSchema = z.object({
-    agenda_id: z.number(),
+    // agenda_id: z.number(),
     title: z.string().min(3, "Club name should be more then 3 character").max(255, "Club name should not be more then 255 character").trim(),
     start_time: z.number(),
     end_time: z.number()
@@ -38,6 +38,6 @@ export const createAgendaSchema = z.object({
     meeting_id: z.number(),
     // created_by: z.number(),
     agenda_title: z.string().min(3, "Club name should be more then 3 character").max(255, "Club name should not be more then 255 character").trim(),
-    agenda_items: z.array(createAgendaItemSchema.omit({agenda_id:true}))
+    agenda_items: z.array(createAgendaItemSchema)
 })
 export type CreateAgendaInput = z.infer<typeof createAgendaSchema>
