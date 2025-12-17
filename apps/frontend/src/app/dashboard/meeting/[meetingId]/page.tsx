@@ -28,7 +28,7 @@ export default function club() {
                     <ArrowBigLeftIcon />
                 </Button>
                 <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger asChild>
                         <Button variant="outline">
                             Create Agenda
                             <PlusIcon></PlusIcon>

@@ -18,7 +18,7 @@ import {
 
 import { ScrollArea } from "@repo/ui/components/scroll-area"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addAgenda } from "../state-management/slice/agendaSlice"
 import { RootState } from "../state-management/store"
@@ -31,15 +31,17 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
     const agendas = useSelector((state: RootState) => state.agendas.agendas)
     const agendaItems = useSelector((state: RootState) => state.agendaItem.agendaItem)
     const [isLoading, setIsLoading] = useState(false)
+    const hasFetchedAgendas = useRef(false)
+    const hasFetchedItems = useRef(false)
 
     useEffect(() => {
         const fetchAgendas = async () => {
-            if (isLoading) return
+            if (hasFetchedAgendas.current || isLoading) return
+            hasFetchedAgendas.current = true
             setIsLoading(true)
 
             try {
                 if (club_id) {
-                    // Fetch agendas for specific club
                     const validateResult = joinClubSchema.safeParse({ club_id })
                     if (!validateResult.success) {
                         toast.error("Validation failed while fetching agendas")
@@ -59,7 +61,6 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
                         }))
                     )
                 } else {
-                    // Fetch all agendas
                     const res = await axios.get(
                         `${process.env.NEXT_PUBLIC_API_URL}/agenda`,
                         { withCredentials: true }
@@ -75,7 +76,7 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
                 }
             } catch (error) {
                 console.error("Error fetching agendas:", error)
-                toast.error("Failed to fetch agendas")
+                // toast.error("Failed to fetch agendas")
             } finally {
                 setIsLoading(false)
             }
@@ -146,7 +147,7 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
                 className="w-full"
                 defaultValue="item-1"
             >
-                {filteredAgendas.map((agenda) => (
+                { filteredAgendas.length > 0 ? filteredAgendas.map((agenda) => (
                     <AccordionItem 
                         key={agenda.id} 
                         value={agenda.id?.toString() || "one"}
@@ -176,7 +177,8 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
                             </Table>
                         </AccordionContent>
                     </AccordionItem>
-                ))}
+                )): <p className="text-neutral-500">Its look like you don't have any agenda to see join club to see agenda or create yourself</p>
+            }
             </Accordion>
         </ScrollArea>
     )

@@ -24,7 +24,7 @@ export function JoinClub() {
 
     const handleJoin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Reach here")
+        // console.log("Reach here")
         const validateResult = joinClubSchema.safeParse({ club_id: Number(clubId) })
         if (!validateResult.success) {
             if (validateResult.error.issues[0]?.message) {

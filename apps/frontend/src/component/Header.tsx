@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@repo/ui/components/button"
+import { Spinner } from "@repo/ui/components/spinner"
 import { useRouter } from "next/navigation"
 import type { RootState } from '../state-management/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -26,7 +27,7 @@ export const Header = () => {
 
             } catch (error) {
                 console.error('Session check failed:', error);
-                dispatch(logout()) // Clear any stale state
+                // dispatch(logout())
             } finally {
                 setLoading(false)
             }
@@ -40,16 +41,17 @@ export const Header = () => {
             <nav className="flex items-center justify-between w-full md:w-7xl px-2 md:px-0">
                 <h1 className="font-bold ">Agenda Builder</h1>
                 {
-                    loading ? null : user ? <Button
-                        onClick={async(e) => {
-                            e.preventDefault()
-                            await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/auth`,{withCredentials:true})
-                            dispatch(logout())
-                            router.push("/")
-                        }}
-                    >
-                        LogOut
-                    </Button> :
+                    loading ? <Spinner/> : user ?
+                        <Button
+                            onClick={async (e) => {
+                                e.preventDefault()
+                                await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+                                dispatch(logout())
+                                router.push("/")
+                            }}
+                        >
+                            LogOut
+                        </Button> :
                         <div className="flex gap-2">
                             <Button
                                 onClick={() => router.push("/signup")}

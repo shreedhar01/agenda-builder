@@ -9,7 +9,7 @@ import {
   AlertDialogTrigger
 } from "@repo/ui/components/alert-dialog";
 import { Button } from "@repo/ui/components/button"
-import { AlertDialogContentProvider } from "../../component/AlertDialogContentProvider";
+import { CreateClub } from "../../component/CreateClub";
 import { Header } from "../../component/Header";
 import { YourClubs } from "../../component/YourClubs";
 import { Dialog, DialogTrigger } from "@repo/ui/components/dialog"
@@ -24,7 +24,7 @@ export default function Home() {
       <div className="flex justify-end w-full md:w-7xl py-8 px-2 md:px-0">
         <div className="flex items-center gap-2 ">
           <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <Button variant="outline">
                 Join Club
                 <HeartHandshakeIcon></HeartHandshakeIcon>
@@ -33,15 +33,15 @@ export default function Home() {
             <JoinClub />
           </Dialog>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
+          <Dialog>
+            <DialogTrigger asChild>
               <Button variant="outline">
                 <h1>Create Club</h1>
                 <PlusIcon></PlusIcon>
               </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContentProvider />
-          </AlertDialog>
+            </DialogTrigger>
+            <CreateClub />
+          </Dialog>
         </div>
       </div>
       <div className="flex flex-col-reverse md:flex-row justify-between gap-y-4 w-full md:w-7xl  h-[78vh] px-2 md:px-0">

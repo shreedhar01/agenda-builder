@@ -2,11 +2,11 @@
 import axios from "axios";
 
 import {
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@repo/ui/components/alert-dialog";
+    DialogClose,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from "@repo/ui/components/dialog"
 import { Button } from "@repo/ui/components/button"
 import {
   Field,
@@ -26,11 +26,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 import { ClubRole, createClubSchema, ErrorType } from "@repo/shared-types"
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../state-management/store";
+import { useDispatch } from "react-redux";
 import { joinClub } from "../state-management/slice/clubSlice";
 
-export const AlertDialogContentProvider = () => {
+export const CreateClub = () => {
   const [clubName, setClubName] = useState("");
   const [area, setArea] = useState("");
   const [division, setDivision] = useState("");
@@ -187,9 +186,9 @@ export const AlertDialogContentProvider = () => {
   }
 
   return (
-    <AlertDialogContent>
-      <AlertDialogHeader>
-        <AlertDialogTitle>Create Club</AlertDialogTitle>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Create Club</DialogTitle>
         <form onSubmit={handleCreateClub}>
           <FieldGroup>
             <FieldSet>
@@ -304,12 +303,12 @@ export const AlertDialogContentProvider = () => {
               </FieldGroup>
             </FieldSet>
             <Field orientation="horizontal" className="flex justify-end">
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <DialogClose>Cancel</DialogClose>
               <Button type="submit">Submit</Button>
             </Field>
           </FieldGroup>
         </form>
-      </AlertDialogHeader>
-    </AlertDialogContent>
+      </DialogHeader>
+    </DialogContent>
   )
 }

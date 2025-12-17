@@ -15,29 +15,35 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 import { Header } from "../../../component/Header";
+import { Spinner } from "@repo/ui/components/spinner";
 
 export default function SignIn() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const handleLogIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setLoading(true)
         const validateResult = await loginUserSchema.safeParse({ email, password })
         if (!validateResult.success) {
             return toast.error(validateResult.error.issues[0]?.message || "Provided field are incorrect");
         }
 
         try {
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, validateResult.data,{withCredentials:true})
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, validateResult.data, { withCredentials: true })
             toast.success("Successfully logged in!")
+            setLoading(false)
             router.push("/dashboard")
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 const message = error.response.data.errors?.[0]?.message || error.response.data.message || "Login failed.";
+                setLoading(false)
                 toast.error(message);
             } else {
                 console.log(error)
+                setLoading(false)
                 toast.error("An unexpected error occurred.");
             }
         }
@@ -87,7 +93,11 @@ export default function SignIn() {
                                 orientation="horizontal"
                                 className="flex flex-col items-center justify-center gap-1"
                             >
-                                <Button type="submit">Sign In</Button>
+                                <Button type="submit" disabled={loading}>
+                                    {
+                                        loading ? <Spinner /> : <p>Sign Up</p>
+                                    }
+                                </Button>
                                 <div className="flex items-center w-full gap-3">
                                     <div className="flex-1 border-t" />
                                     <span className="text-sm">or</span>

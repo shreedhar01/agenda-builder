@@ -18,15 +18,11 @@ import { ScrollArea } from "@repo/ui/components/scroll-area"
 
 import { useSelector } from "react-redux"
 import { RootState } from "../state-management/store"
-import { useEffect } from "react"
 
 export const AgendaForMeeting = ({ meeting_id }: { meeting_id: number }) => {
     const agendas = useSelector((state: RootState) => state.agendas.agendas)
     const agendasItem = useSelector((state: RootState) => state.agendaItem.agendaItem)
 
-    useEffect(() => {
-
-    }, [agendas])
     return (
         <div className="h-full">
             <ScrollArea className="h-full">
