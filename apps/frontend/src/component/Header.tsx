@@ -14,9 +14,11 @@ export const Header = () => {
     const user = useSelector((state: RootState) => state.auth.id)
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(true);
+    const token = localStorage.getItem("auth")
 
     useEffect(() => {
         const checkSession = async () => {
+            if(!token) return
             try {
                 await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, {
                     withCredentials: true

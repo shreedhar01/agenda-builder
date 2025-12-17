@@ -4,7 +4,6 @@ import { ScrollArea } from "@repo/ui/components/scroll-area"
 import axios from "axios"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import toast from "react-hot-toast"
 import { RootState } from "../state-management/store"
 import { useRouter } from "next/navigation"
 import { addMeeting } from "../state-management/slice/meetingSlice"
@@ -21,7 +20,7 @@ export const YourMeetings = ({ club_id }: { club_id: number }) => {
         const getMeeting = async () => {
             const validateResult = joinClubSchema.safeParse({ club_id });
             if (!validateResult.success) {
-                return toast.error("Validation fail while fetching meeting")
+                return 
             }
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/meeting`, validateResult.data, { withCredentials: true })
                 .then(res => {
@@ -39,7 +38,7 @@ export const YourMeetings = ({ club_id }: { club_id: number }) => {
                 })
                 .catch((error) => {
                     console.error('Axios error:', error)
-                    toast.error(error.response?.data?.message || 'Something went wrong')
+                    // toast.error(error.response?.data?.message || 'Something went wrong')
                 })
         }
         getMeeting()
