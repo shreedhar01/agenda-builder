@@ -4,10 +4,6 @@ import {
   HeartHandshakeIcon
 } from "lucide-react";
 
-import {
-  AlertDialog,
-  AlertDialogTrigger
-} from "@repo/ui/components/alert-dialog";
 import { Button } from "@repo/ui/components/button"
 import { CreateClub } from "../../component/CreateClub";
 import { Header } from "../../component/Header";
@@ -15,9 +11,21 @@ import { YourClubs } from "../../component/YourClubs";
 import { Dialog, DialogTrigger } from "@repo/ui/components/dialog"
 import { JoinClub } from "../../component/JoinClub";
 import { YourAgendas } from "../../component/YourAgendas";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-
+  const router = useRouter()
+  const token = localStorage.getItem("auth")
+  if (!token) {
+    return (
+      <div className="flex flex-col gap-4 items-center justify-center w-full h-screen">
+        <p className="text-2xl text-red-700">Warning ! you have lost your way</p>
+        <Button
+          onClick={() => router.push("/")}
+        >Find Way</Button>
+      </div>
+    )
+  }
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <Header />
@@ -48,7 +56,7 @@ export default function Home() {
         <div className="flex flex-col gap-2 h-1/2 md:h-full w-full md:w-70/100">
           <h1 className="text-xl md:text-2xl font-medium ">Your Agendas :</h1>
           <div className="flex-1 min-h-0">
-            <YourAgendas/>
+            <YourAgendas />
           </div>
         </div>
         <div className="flex flex-col gap-2 h-1/2 md:h-full w-full md:w-25/100">

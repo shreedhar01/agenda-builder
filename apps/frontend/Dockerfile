@@ -22,6 +22,10 @@ COPY packages/eslint-config ./packages/eslint-config
 COPY packages/shared-types ./packages/shared-types
 COPY packages/typescript-config ./packages/typescript-config
 
+# Set the environment variable BEFORE building
+ARG NEXT_PUBLIC_API_URL=http://localhost:8001
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 WORKDIR /app
 RUN pnpm -r build
 
