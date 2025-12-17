@@ -15,8 +15,8 @@ import {
 import { Input } from "@repo/ui/components/input"
 import { Label } from "@repo/ui/components/label"
 import { PlusIcon } from "lucide-react"
-import React, { useState } from "react"
-import { createAgendaItemSchema, createAgendaSchema } from "@repo/shared-types"
+import React, { useEffect, useState } from "react"
+import { createAgendaItemSchema, createAgendaSchema, getAllAgendaItemSchema } from "@repo/shared-types"
 import toast from "react-hot-toast"
 import axios from "axios"
 import { addAgenda } from "../state-management/slice/agendaSlice"
@@ -40,6 +40,7 @@ export const CreateAgenda = ({ meeting_id }: { meeting_id: number }) => {
     })
     const [agendaItems, setAgendaItems] = useState<IAgendaItem[]>([])
     const [title, setTitle] = useState("")
+    const [agendaId, setAgendaId] = useState("")
 
     const handleAgendaItemSubmit = async () => {
         if (!agendaItem.title) return;
@@ -56,7 +57,7 @@ export const CreateAgenda = ({ meeting_id }: { meeting_id: number }) => {
         e.preventDefault()
 
         const validationResult = createAgendaSchema.safeParse({
-            meeting_id, agenda_title:title, agenda_items:agendaItems
+            meeting_id, agenda_title: title, agenda_items: agendaItems
         })
 
         if (!validationResult.success) {
@@ -64,7 +65,7 @@ export const CreateAgenda = ({ meeting_id }: { meeting_id: number }) => {
             return toast.error("Provided field are incorrect")
         }
 
-        console.log('Validated data:', validationResult.data)
+        // console.log('Validated data:', validationResult.data)
 
         await axios
             .post(`${process.env.NEXT_PUBLIC_API_URL}/user/agenda`, validationResult.data, { withCredentials: true })
@@ -79,6 +80,7 @@ export const CreateAgenda = ({ meeting_id }: { meeting_id: number }) => {
                     }))
                     toast.success(res.data.message)
                     setAgendaItems([])
+                    setAgendaId(agendaData.agenda_id.toString())
                 } else {
                     console.error('Invalid club data:', agendaData)
                     toast.error('Failed to create meeting - invalid data')
@@ -90,6 +92,42 @@ export const CreateAgenda = ({ meeting_id }: { meeting_id: number }) => {
             })
 
     }
+
+    useEffect(() => {
+        if (!agendaId.trim()) return;
+        const getAgendaItems = async () => {
+            const validationResult = getAllAgendaItemSchema.safeParse({agenda_id:Number(agendaId)})
+
+            if (!validationResult.success) {
+                console.log('Validation errors:', validationResult.error)
+                return toast.error("Provided field are incorrect")
+            }
+
+            await axios
+                .post(`${process.env.NEXT_PUBLIC_API_URL}/user/agenda`, validationResult.data, { withCredentials: true })
+                .then((res) => {
+                    const agendaData = res.data.data?.[0]
+                    if (agendaData && agendaData.agenda_id) {
+                        dispatch(addAgenda({
+                            id: agendaData.agenda_id,
+                            title: agendaData.agenda_title,
+                            club_id: agendaData.club_id,
+                            meeting_id: agendaData.meeting_id
+                        }))
+                        toast.success(res.data.message)
+                        setAgendaItems([])
+                        setAgendaId(agendaData.agenda_id.toString())
+                    } else {
+                        console.error('Invalid club data:', agendaData)
+                        toast.error('Failed to create meeting - invalid data')
+                    }
+                })
+                .catch((error) => {
+                    console.error('Axios error:', error)
+                    toast.error(error.response?.data?.message || 'Something went wrong')
+                })
+        }
+    }, [agendaId])
 
     return (
         <DialogContent>

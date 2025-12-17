@@ -1,6 +1,6 @@
 import { db, drizzleOrm } from "@repo/database";
 import { agendas, meetings, memberships } from "@repo/database/schema";
-import { ApiError, type ClubMembershipReturn, type GetAllClubsInput } from "@repo/shared-types";
+import { ApiError } from "@repo/shared-types";
 
 export const getAllAgendaService = async (user_id: number) => {
     const isAgendaExist = await db

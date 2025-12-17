@@ -31,7 +31,7 @@ export const getMeetingsByClubId = asyncHandler(async (req: Request, res: Respon
 
     const meeting = await getAllMeetingByClubIdService(user_name,club_id)
     if(meeting.length === 0){
-        throw new ApiError(400,"Meeting doesn't exist")
+        throw new ApiError(400,"Meeting doesn't exist for this club")
     }
 
     return res.status(200).json(

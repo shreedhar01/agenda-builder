@@ -32,7 +32,6 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
     const agendaItems = useSelector((state: RootState) => state.agendaItem.agendaItem)
     const [isLoading, setIsLoading] = useState(false)
 
-    // Fetch agendas based on club_id
     useEffect(() => {
         const fetchAgendas = async () => {
             if (isLoading) return
@@ -83,9 +82,8 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
         }
 
         fetchAgendas()
-    }, [club_id, dispatch]) // Added dispatch to dependencies
+    }, [club_id, dispatch]) 
 
-    // Fetch agenda items when agendas change
     useEffect(() => {
         const fetchAgendaItems = async () => {
             if (agendas.length === 0) return
@@ -134,9 +132,8 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
         }
 
         fetchAgendaItems()
-    }, [agendas.length, dispatch]) // Only run when number of agendas changes
+    }, [agendas.length, dispatch])
 
-    // Filter agendas based on club_id
     const filteredAgendas = club_id 
         ? agendas.filter(agen => agen.club_id === club_id)
         : agendas

@@ -11,6 +11,7 @@ import { Button } from "@repo/ui/components/button"
 import { ArrowBigLeftIcon, PlusIcon } from "lucide-react"
 import { Header } from "../../../../component/Header"
 import { CreateAgenda } from "../../../../component/CreateAgenda"
+import { AgendaForMeeting } from "../../../../component/AgendaForMeeting"
 
 export default function club() {
     const router = useRouter()
@@ -37,16 +38,10 @@ export default function club() {
                 </Dialog>
             </div>
             <div className="flex flex-col-reverse md:flex-row md:justify-between w-full md:w-7xl px-2 md:px-0 border">
-                <div className="flex flex-col gap-2 h-1/2 md:h-full w-full md:w-70/100">
+                <div className="flex flex-col gap-2 h-1/2 md:h-[80vh] w-full md:w-70/100">
                     <h1 className="text-xl md:text-2xl font-medium ">Your Agendas :</h1>
-                    <div className="flex-1 min-h-0">
-                        {/* <YourAgendas /> */}
-                    </div>
-                </div>
-                <div className="flex flex-col gap-2 h-1/2 md:h-full w-full md:w-25/100">
-                    <h1 className="text-xl md:text-2xl font-medium ">Your Meetings :</h1>
                     <div className="flex-1 min-h-0 overflow-hidden">
-                        {/* <YourMeetings club_id={Number(id)}/> */}
+                        <AgendaForMeeting meeting_id={Number(id)}/>
                     </div>
                 </div>
             </div>
