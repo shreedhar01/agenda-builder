@@ -106,7 +106,7 @@ export const CreateMeeting = ({ club_id }: { club_id: number }) => {
                         value={theme}
                         onChange={(e) => setTheme(e.target.value)}
                     />
-                    <Label htmlFor="name-2">Titel</Label>
+                    <Label htmlFor="name-2">Title</Label>
                     <Input
                         id="name-2"
                         name="name"

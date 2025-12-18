@@ -32,7 +32,6 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
     const agendaItems = useSelector((state: RootState) => state.agendaItem.agendaItem)
     const [isLoading, setIsLoading] = useState(false)
     const hasFetchedAgendas = useRef(false)
-    const hasFetchedItems = useRef(false)
 
     useEffect(() => {
         const fetchAgendas = async () => {
@@ -101,7 +100,7 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
 
                     try {
                         const res = await axios.post(
-                            `${process.env.NEXT_PUBLIC_API_URL}/agendaItem`,
+                            `${process.env.NEXT_PUBLIC_API_URL}/agendaItem/byid`,
                             validateResult.data,
                             { withCredentials: true }
                         )
