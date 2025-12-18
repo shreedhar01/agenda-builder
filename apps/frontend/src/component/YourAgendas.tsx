@@ -22,7 +22,7 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addAgenda } from "../state-management/slice/agendaSlice"
 import { RootState } from "../state-management/store"
-import { getAllAgendaItemSchema, joinClubSchema } from "@repo/shared-types"
+import {  getAllAgendaItemByAgendaIdSchema, joinClubSchema } from "@repo/shared-types"
 import toast from "react-hot-toast"
 import { addAgendaItem } from "../state-management/slice/agendaItemSlice"
 
@@ -91,7 +91,7 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
             try {
                 // Fetch all agenda items in parallel
                 const promises = agendas.map(async (agenda) => {
-                    const validateResult = getAllAgendaItemSchema.safeParse({ agenda_id: agenda.id })
+                    const validateResult = getAllAgendaItemByAgendaIdSchema.safeParse({ agenda_id: agenda.id })
                     if (!validateResult?.success) {
                         console.error("Agenda id validation failed:", validateResult.error)
                         toast.error("Invalid agenda id")
