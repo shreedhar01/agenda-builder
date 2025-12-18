@@ -9,7 +9,6 @@ import { useParams, useRouter } from "next/navigation"
 
 import { Button } from "@repo/ui/components/button"
 import { ArrowBigLeftIcon, PlusIcon } from "lucide-react"
-import { Header } from "../../../../component/Header"
 import { CreateAgenda } from "../../../../component/CreateAgenda"
 import { AgendaForMeeting } from "../../../../component/AgendaForMeeting"
 
@@ -19,7 +18,6 @@ export default function club() {
     const id = params.meetingId
     return (
         <div className="flex flex-col items-center justify-center w-full">
-            <Header />
             <div className="flex justify-between items-center w-full md:w-7xl px-2 md:px-0 py-2 md:py-4">
                 <Button
                     size="sm"

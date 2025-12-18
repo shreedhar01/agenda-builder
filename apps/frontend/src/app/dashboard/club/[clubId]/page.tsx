@@ -6,7 +6,6 @@ import {
 } from "@repo/ui/components/dialog"
 
 import { useParams, useRouter } from "next/navigation"
-import { Header } from "../../../../component/Header"
 import { Button } from "@repo/ui/components/button"
 import { ArrowBigLeftIcon, PlusIcon } from "lucide-react"
 import { CreateMeeting } from "../../../../component/CreateMeeting"
@@ -19,7 +18,6 @@ export default function club() {
     const id = params.clubId
     return (
         <div className="flex flex-col items-center justify-center w-full">
-            <Header />
             <div className="flex justify-between items-center w-full md:w-7xl px-2 md:px-0 py-2 md:py-4">
                 <Button
                     size="sm"

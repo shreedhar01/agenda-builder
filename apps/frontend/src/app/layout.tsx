@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "@repo/ui/globals.css";
-import { Toaster } from "react-hot-toast";
 import  StateProvider  from './provider'
 
 export const metadata: Metadata = {

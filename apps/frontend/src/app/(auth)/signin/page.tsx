@@ -95,7 +95,7 @@ export default function SignIn() {
                             >
                                 <Button type="submit" disabled={loading}>
                                     {
-                                        loading ? <Spinner /> : <p>Sign Up</p>
+                                        loading ? <Spinner /> : <p>Sign In</p>
                                     }
                                 </Button>
                                 <div className="flex items-center w-full gap-3">

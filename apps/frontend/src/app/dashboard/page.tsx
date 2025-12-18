@@ -14,21 +14,10 @@ import { YourAgendas } from "../../component/YourAgendas";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const router = useRouter()
-  const token = localStorage.getItem("auth")
-  if (!token) {
-    return (
-      <div className="flex flex-col gap-4 items-center justify-center w-full h-screen">
-        <p className="text-2xl text-red-700">Warning ! you have lost your way</p>
-        <Button
-          onClick={() => router.push("/")}
-        >Find Way</Button>
-      </div>
-    )
-  }
+  
+  
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <Header />
       <div className="flex justify-end w-full md:w-7xl py-8 px-2 md:px-0">
         <div className="flex items-center gap-2 ">
           <Dialog>
