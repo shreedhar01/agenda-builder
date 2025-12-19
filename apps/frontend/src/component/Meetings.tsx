@@ -20,7 +20,7 @@ export const YourMeetings = ({ club_id }: { club_id: number }) => {
         const getMeeting = async () => {
             const validateResult = joinClubSchema.safeParse({ club_id });
             if (!validateResult.success) {
-                return 
+                return
             }
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/meeting`, validateResult.data, { withCredentials: true })
                 .then(res => {
@@ -42,14 +42,18 @@ export const YourMeetings = ({ club_id }: { club_id: number }) => {
                 })
         }
         getMeeting()
-    }, [])
+    }, [club_id])
+
+    const fetchResult = club_id ? meetings.filter(meet => meet.club_id === club_id) : meetings
 
     return (
         <ScrollArea className="flex flex-col gap-2 h-full">
             {meetings.map(meeting =>
                 <div
                     key={meeting.id}
-                    onClick={() => router.push(`/dashboard/meeting/${meeting.id}`)}
+                    onClick={() => router.push(
+                        `/dashboard/meeting/${meeting.id}${club_id ? `?club-id=${club_id}` : ""}`
+                    )}
                     className="flex justify-between w-full hover:bg-neutral-400 cursor-pointer border-b p-4 rounded-xl"
                 >
                     <div>

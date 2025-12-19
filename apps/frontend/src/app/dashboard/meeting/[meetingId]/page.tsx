@@ -5,7 +5,7 @@ import {
     DialogTrigger
 } from "@repo/ui/components/dialog"
 
-import { useParams, useRouter } from "next/navigation"
+import { useParams, useRouter, useSearchParams } from "next/navigation"
 
 import { Button } from "@repo/ui/components/button"
 import { ArrowBigLeftIcon, PlusIcon } from "lucide-react"
@@ -16,12 +16,15 @@ export default function club() {
     const router = useRouter()
     const params = useParams()
     const id = params.meetingId
+
+    const searchParam = useSearchParams()
+    const club_id = searchParam?.get("club-id")
     return (
         <div className="flex flex-col items-center justify-center w-full">
             <div className="flex justify-between items-center w-full md:w-7xl px-2 md:px-0 py-2 md:py-4">
                 <Button
                     size="sm"
-                    onClick={() => id?router.push(`/dashboard/club/${id}`):router.push("/dashboard")}
+                    onClick={() => id?router.push(`/dashboard/club/${club_id}`):router.push("/dashboard")}
                 >
                     <ArrowBigLeftIcon />
                 </Button>

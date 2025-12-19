@@ -29,7 +29,7 @@ export const getAllAgendaItemByUserIdService = async (user: { id: number, name: 
                 drizzleOrm.isNotNull(memberships.id)
             )
         )
-        .orderBy(drizzleOrm.asc(meetings.start_time), drizzleOrm.asc(agenda_item.start_time));
+        .orderBy( drizzleOrm.asc(agenda_item.start_time));
 
     if (isAgendaItemExist.length === 0) {
         throw new ApiError(400, "AgendaItem doesn't exist in given")
@@ -108,7 +108,7 @@ export const getAgendaItemByClubIdService = async (club: GetAllAgendaItemByClubI
         .where(
             drizzleOrm.eq(clubs.id, club.club_id)
         )
-        .orderBy(drizzleOrm.asc(meetings.start_time), drizzleOrm.asc(agenda_item.start_time));
+        .orderBy(drizzleOrm.asc(agenda_item.start_time));
     if (isAgendaItemExist.length === 0) {
         throw new ApiError(400, "AgendaItem doesn't exist in given agenda id")
     }

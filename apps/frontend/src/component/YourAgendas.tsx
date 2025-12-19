@@ -22,7 +22,7 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addAgenda } from "../state-management/slice/agendaSlice"
 import { RootState } from "../state-management/store"
-import {  getAllAgendaItemByAgendaIdSchema, joinClubSchema } from "@repo/shared-types"
+import { getAllAgendaItemByAgendaIdSchema, joinClubSchema } from "@repo/shared-types"
 import toast from "react-hot-toast"
 import { addAgendaItem } from "../state-management/slice/agendaItemSlice"
 
@@ -46,32 +46,58 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
                         toast.error("Validation failed while fetching agendas")
                         return
                     }
-                    const res = await axios.post(
-                        `${process.env.NEXT_PUBLIC_API_URL}/agenda`,
-                        validateResult.data,
-                        { withCredentials: true }
-                    )
-                    res.data.data.forEach((agen: any) =>
-                        dispatch(addAgenda({
-                            id: agen.agenda_id,
-                            title: agen.agenda_title,
-                            club_id: agen.club_id,
-                            meeting_id: agen.meeting_id
-                        }))
-                    )
+                    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/agenda`, validateResult.data, { withCredentials: true })
+                        .then((res) => {
+                            // console.log(res)
+                            res.data.data.forEach((agen: any) =>
+                                dispatch(addAgenda({
+                                    id: agen.agenda_id,
+                                    title: agen.agenda_title,
+                                    club_id: agen.club_id,
+                                    meeting_id: agen.meeting_id
+                                }))
+                            )
+                        })
+                    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/agendaItem/club-id`, { club_id:club_id }, { withCredentials: true })
+                        .then((res) => {
+                            // console.log("Error while fetching agenda Item by club id",res)
+                            res.data.data.forEach((agen: any) =>
+                                dispatch(addAgendaItem({
+                                    id: agen.id,
+                                    title: agen.title,
+                                    agenda_id: agen.agenda_id,
+                                    start_time: agen.start_time,
+                                    end_time: agen.end_time
+                                }))
+                            )
+                        })
                 } else {
-                    const res = await axios.get(
-                        `${process.env.NEXT_PUBLIC_API_URL}/agenda`,
-                        { withCredentials: true }
-                    )
-                    res.data.data.forEach((agen: any) =>
-                        dispatch(addAgenda({
-                            id: agen.agenda_id,
-                            title: agen.agenda_title,
-                            club_id: agen.club_id,
-                            meeting_id: agen.meeting_id
-                        }))
-                    )
+                    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/agenda`, { withCredentials: true })
+                        .then((res) => {
+                            console.log(res)
+                            res.data.data.forEach((agen: any) =>
+                                dispatch(addAgenda({
+                                    id: agen.agenda_id,
+                                    title: agen.agenda_title,
+                                    club_id: agen.club_id,
+                                    meeting_id: agen.meeting_id
+                                }))
+                            )
+                        })
+
+                    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/agendaItem`, {  }, { withCredentials: true })
+                        .then((res) => {
+                            console.log(res)
+                            res.data.data.forEach((agen: any) =>
+                                dispatch(addAgendaItem({
+                                    id: agen.id,
+                                    title: agen.title,
+                                    agenda_id: agen.agenda_id,
+                                    start_time: agen.start_time,
+                                    end_time: agen.end_time
+                                }))
+                            )
+                        })
                 }
             } catch (error) {
                 console.error("Error fetching agendas:", error)
@@ -82,59 +108,9 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
         }
 
         fetchAgendas()
-    }, [club_id, dispatch]) 
+    }, [club_id, dispatch])
 
-    useEffect(() => {
-        const fetchAgendaItems = async () => {
-            if (agendas.length === 0) return
-
-            try {
-                // Fetch all agenda items in parallel
-                const promises = agendas.map(async (agenda) => {
-                    const validateResult = getAllAgendaItemByAgendaIdSchema.safeParse({ agenda_id: agenda.id })
-                    if (!validateResult?.success) {
-                        console.error("Agenda id validation failed:", validateResult.error)
-                        toast.error("Invalid agenda id")
-                        return
-                    }
-
-                    try {
-                        const res = await axios.post(
-                            `${process.env.NEXT_PUBLIC_API_URL}/agendaItem/byid`,
-                            validateResult.data,
-                            { withCredentials: true }
-                        )
-                        return res.data.data
-                    } catch (error) {
-                        console.error(`Error fetching items for agenda ${agenda.id}:`, error)
-                        return []
-                    }
-                })
-
-                const results = await Promise.all(promises)
-                
-                // Dispatch all items after fetching
-                results.flat().forEach((item: any) => {
-                    if (item) {
-                        dispatch(addAgendaItem({
-                            id: item.id,
-                            title: item.title,
-                            agenda_id: item.agenda_id,
-                            start_time: item.start_time,
-                            end_time: item.end_time
-                        }))
-                    }
-                })
-            } catch (error) {
-                console.error("Error fetching agenda items:", error)
-                toast.error("Failed to fetch agenda items")
-            }
-        }
-
-        fetchAgendaItems()
-    }, [agendas.length, dispatch])
-
-    const filteredAgendas = club_id 
+    const filteredAgendas = club_id
         ? agendas.filter(agen => agen.club_id === club_id)
         : agendas
 
@@ -146,9 +122,9 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
                 className="w-full"
                 defaultValue="item-1"
             >
-                { filteredAgendas.length > 0 ? filteredAgendas.map((agenda) => (
-                    <AccordionItem 
-                        key={agenda.id} 
+                {filteredAgendas.length > 0 ? filteredAgendas.map((agenda) => (
+                    <AccordionItem
+                        key={agenda.id}
                         value={agenda.id?.toString() || "one"}
                     >
                         <AccordionTrigger>{agenda.title}</AccordionTrigger>
@@ -176,8 +152,8 @@ export const YourAgendas = ({ club_id }: { club_id?: number }) => {
                             </Table>
                         </AccordionContent>
                     </AccordionItem>
-                )): <p className="text-neutral-500">Its look like you don't have any agenda to see join club to see agenda or create yourself</p>
-            }
+                )) : <p className="text-neutral-500">Its look like you don't have any agenda to see join club to see agenda or create yourself</p>
+                }
             </Accordion>
         </ScrollArea>
     )

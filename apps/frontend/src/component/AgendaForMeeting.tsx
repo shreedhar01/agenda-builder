@@ -36,7 +36,7 @@ export const AgendaForMeeting = ({ meeting_id }: { meeting_id: number }) => {
             try {
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/agenda/meeting-id`, {meeting_id}, { withCredentials: true })
                     .then((res) => {
-                        console.log(res)
+                        // console.log(res)
                         res.data.data.forEach((agen: any) =>
                             dispatch(addAgenda({
                                 id: agen.agenda_id,
@@ -54,7 +54,7 @@ export const AgendaForMeeting = ({ meeting_id }: { meeting_id: number }) => {
                             dispatch(addAgendaItem({
                                 id: agen.id,
                                 title: agen.title,
-                                agenda_id: agen.club_id,
+                                agenda_id: agen.agenda_id,
                                 start_time: agen.start_time,
                                 end_time: agen.end_time
                             }))
