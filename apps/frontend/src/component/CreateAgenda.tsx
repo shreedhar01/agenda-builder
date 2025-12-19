@@ -16,7 +16,7 @@ import { Input } from "@repo/ui/components/input"
 import { Label } from "@repo/ui/components/label"
 import { PlusIcon } from "lucide-react"
 import React, { useEffect, useState } from "react"
-import { createAgendaItemSchema, createAgendaSchema, getAllAgendaItemSchema } from "@repo/shared-types"
+import { createAgendaItemSchema, createAgendaSchema, getAllAgendaItemByAgendaIdSchema } from "@repo/shared-types"
 import toast from "react-hot-toast"
 import axios from "axios"
 import { addAgenda } from "../state-management/slice/agendaSlice"
@@ -96,7 +96,7 @@ export const CreateAgenda = ({ meeting_id }: { meeting_id: number }) => {
     useEffect(() => {
         if (!agendaId.trim()) return;
         const getAgendaItems = async () => {
-            const validationResult = getAllAgendaItemSchema.safeParse({agenda_id:Number(agendaId)})
+            const validationResult = getAllAgendaItemByAgendaIdSchema.safeParse({agenda_id:Number(agendaId)})
 
             if (!validationResult.success) {
                 console.log('Validation errors:', validationResult.error)
